@@ -8,6 +8,9 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed dependencies specified in requirements.txt
+RUN apt-get update && \
+    apt-get install -y libgomp1 && \
+    rm -rf /var/lib/apt/lists/*  # Cleanup to reduce image size
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 8000 available to the world outside this container
