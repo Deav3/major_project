@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import joblib
 
 app = Flask(__name__)
-liver_model = 'lgb_model.pkl'
+liver_model = 'a_model.pkl'
 model = joblib.load(open(liver_model, 'rb'))
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,10 +28,7 @@ def index():
         prediction = model.predict(feature_vector)
         return render_template('result.html', prediction=prediction)
 
-
     return render_template('index.html')
 
-
-
-if __name__ == "_main_":
-    app.run(host='0.0.0.0',port=8000,debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8000, debug=True)

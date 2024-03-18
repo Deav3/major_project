@@ -11,13 +11,10 @@ COPY . /app
 RUN apt-get update && \
     apt-get install -y libgomp1 && \
     rm -rf /var/lib/apt/lists/*  # Cleanup to reduce image size
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Make port 8000 available to the world outside this container
 EXPOSE 8000
 
-# Define environment variable
-ENV FLASK_APP=app.py
-
-# Run app.py when the container launches
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+ENTRYPOINT ["python3"]
+CMD ["app.py", "runserver", "0.0.0.0:8000"]
